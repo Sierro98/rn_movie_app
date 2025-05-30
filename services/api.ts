@@ -3,7 +3,7 @@ export const TMDB_CONFIG = {
     API_KEY:  process.env.EXPO_PUBLIC_MOVIE_API_KEY,
     HEADERS: {
         accept: 'application/json',
-        Authorization: `Bearer ${process.env.EXPO_PUBLIC_MOVIE_API_KEY}`
+        Authorization: `Bearer ${process.env.EXPO_PUBLIC_MOVIE_API_KEY}`,
     }
 }
 
