@@ -59,7 +59,7 @@ export default function Index() {
             <SearchBar
               onPress={() => router.push("/search")}
               placeholder='Search for a movie' />
-            <Text className="text-white text-lg font-bold mt-5 mb-3">
+            <Text className="text-white text-lg font-bold mt-5 mb-5">
               Latest Movies
             </Text>
           </>
