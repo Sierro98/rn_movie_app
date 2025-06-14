@@ -28,14 +28,14 @@ const MovieCard = ({ id, poster_path, title, vote_average, release_date }: Movie
                 onPressOut={() => setIsLongPressed(false)}
                 delayLongPress={200}
             >
-                <View className='relative'>
+                <View className='relative overflow-hidden rounded-lg mb-2'>
                     <Image
                         source={{
                             uri: poster_path
                                 ? `https://image.tmdb.org/t/p/w500${poster_path}`
                                 : 'https://via.placeholder.com/150'
                         }}
-                        className='w-full h-40 rounded-lg mb-2'
+                        className='w-full h-40'
                         resizeMode='cover'
                     />
                     {isLongPressed && (
