@@ -58,7 +58,9 @@ export default function Index() {
             <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
             <SearchBar
               onPress={() => router.push("/search")}
-              placeholder='Search for a movie' />
+              placeholder='Search for a movie' value={""} onChangeText={function (text: string): void {
+                throw new Error("Function not implemented.");
+              } } />
             <Text className="text-white text-lg font-bold mt-5 mb-5">
               Latest Movies
             </Text>
@@ -66,7 +68,7 @@ export default function Index() {
         }
         contentContainerStyle={{
           paddingHorizontal: 20,
-          paddingBottom: 10,
+          paddingBottom: 100,
           paddingTop: 0,
         }}
         showsVerticalScrollIndicator={false}

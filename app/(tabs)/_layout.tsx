@@ -68,9 +68,7 @@ const AnimatedTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) =
             width: TAB_WIDTH,
             height: '100%',
             position: 'absolute',
-            // I'm using a solid color as a placeholder for the highlight image.
-            // You can replace this with a LinearGradient or an ImageBackground.
-            backgroundColor: '#FFA500',
+            backgroundColor: '#F98AFE',
             borderRadius: 50,
             alignItems: 'center',
             justifyContent: 'center',
@@ -127,7 +125,7 @@ const styles = StyleSheet.create({
         height: 52,
         borderRadius: 50,
         backgroundColor: '#0f0D23',
-        borderWidth: 1,
+        borderWidth: 0,
         borderColor: '#0f0D23',
     },
 });
