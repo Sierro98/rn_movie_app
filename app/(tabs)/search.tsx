@@ -8,6 +8,7 @@ import { fetchMovies } from '@/services/api'
 import SearchBar from "@/components/SearchBar";
 import { icons } from '@/constants/icons'
 import EmptyState from '@/components/EmptyState'
+import { updateSearchCount } from '@/services/appwrite'
 
 const search = () => {
 
@@ -27,11 +28,23 @@ const search = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (searchQuery.trim()) {
-        loadMovies();
+        loadMovies()
+          .then(newlyFetchedMovies => {
+            // Use the fresh data directly from the promise
+            if (newlyFetchedMovies && newlyFetchedMovies.length > 0) {
+              updateSearchCount(searchQuery, newlyFetchedMovies[0]);
+            }
+          })
+          .catch(error => {
+            // Optional: handle any errors from the fetch operation
+            console.error("Failed to load movies:", error);
+          });
       } else {
         resetMovies();
       }
     }, 500);
+
+    // Cleanup function to clear the timeout
     return () => clearTimeout(timeout);
   }, [searchQuery]);
 
