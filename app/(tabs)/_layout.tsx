@@ -55,16 +55,23 @@ const AnimatedTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) =
         navigation.navigate(state.routes[index].name);
     };
 
+    const scale = useSharedValue(1);
+
     React.useEffect(() => {
         translateX.value = withSpring(state.index * TAB_WIDTH, {
-            damping: 18,
-            stiffness: 120,
+            damping: 15,
+            stiffness: 150,
+            mass: 0.8,
+        });
+
+        scale.value = withSpring(0.8, {}, () => {
+            scale.value = withSpring(1, { damping: 10, stiffness: 100 });
         });
     }, [state.index, TAB_WIDTH, translateX]);
 
     const animatedStyle = useAnimatedStyle(() => {
         return {
-            transform: [{ translateX: translateX.value }],
+            transform: [{ translateX: translateX.value }, { scale: scale.value }],
             width: TAB_WIDTH,
             height: '100%',
             position: 'absolute',
