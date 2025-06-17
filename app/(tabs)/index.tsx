@@ -81,6 +81,20 @@ export default function Index() {
         ListHeaderComponent={
           <>
             <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
+            {trendingMovies && (
+              <View>
+                <Text className="text-white text-lg font-bold mt-5 mb-5">Trending Movies</Text>
+                <FlatList
+                  data={trendingMovies}
+                  renderItem={({item, index}) => (
+                    <Text className="text-white">{item.title}</Text>
+                  )}
+                  keyExtractor={(item) => item.movie_id.toString()}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  className="mt-3 mb-4"
+                />
+              </View>)}
             <Text className="text-white text-lg font-bold mt-5 mb-5">
               Latest Movies
             </Text>
