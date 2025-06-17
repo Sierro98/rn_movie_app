@@ -10,11 +10,19 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 
 import React, { useState } from 'react';
+import { getTrendingMovies } from "@/services/appwrite";
 
 export default function Index() {
   const router = useRouter();
   const { top } = useSafeAreaInsets();
   const [refreshing, setRefreshing] = useState(false);
+
+  const {
+    data: trendingMovies,
+    loading: trendingMoviesLoading,
+    error: trendingMoviesError,
+    refetch: reFetchTrendingMovies,
+  } = useFetch(getTrendingMovies);
 
   // Fetching movies with an empty query to get all movies
   const {
@@ -34,7 +42,7 @@ export default function Index() {
   };
 
 
-  if (moviesLoading) {
+  if (moviesLoading || trendingMoviesLoading) {
     return (
       <View className="flex-1 bg-primary justify-center items-center">
         <ActivityIndicator size='large' color='#0000ff' />
@@ -42,10 +50,11 @@ export default function Index() {
     );
   }
 
-  if (moviesError) {
+  if (moviesError || trendingMoviesError) {
     return (
       <View className="flex-1 bg-primary justify-center items-center">
-        <Text className="text-white">Error: {moviesError?.message}</Text>
+        <Text className="text-white">Error: {moviesError?.message
+          || trendingMoviesError?.message}</Text>
       </View>
     );
   }
@@ -64,11 +73,11 @@ export default function Index() {
         }}
         className="mt-2 pb-32"
         renderItem={({ item }) => (
-          <MovieCard 
+          <MovieCard
             {...item}
           />
         )}
-      
+
         ListHeaderComponent={
           <>
             <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
@@ -84,11 +93,11 @@ export default function Index() {
         }}
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl 
-            refreshing={refreshing} 
-            onRefresh={onRefresh} 
-            tintColor="#fff" 
-            progressViewOffset={top + 10} 
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor="#fff"
+            progressViewOffset={top + 10}
           />
         }
       />
